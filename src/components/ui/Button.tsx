@@ -4,7 +4,7 @@ import Link from "next/link";
 
 type ButtonBaseProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "ghost";
   className?: string;
   disabled?: boolean;
 };
@@ -27,8 +27,7 @@ const focusRing =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black";
 
 const variants = {
-  primary: `bg-white text-black font-medium rounded-md px-6 py-3 text-sm hover:bg-gray-100 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_20px_rgba(0,255,148,0.15)] active:scale-[0.98] ${focusRing}`,
-  secondary: `border border-gray-700 text-white/80 rounded-md px-6 py-3 text-sm hover:border-gray-500 hover:text-white transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_16px_rgba(0,255,148,0.08)] active:scale-[0.98] ${focusRing}`,
+  primary: `bg-white text-black font-medium rounded-md px-6 py-3 text-sm hover:bg-gray-200 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed ${focusRing}`,
   ghost: `text-sm text-gray-400 hover:text-white inline-flex items-center gap-2 transition-colors duration-150 ${focusRing}`,
 };
 
