@@ -3,10 +3,25 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Dashboard semantic tokens */
+    --dash-bg: #080b12;
+    --dash-panel: #0c1019;
+    --dash-elevated: #111820;
+    --dash-border: rgba(255, 255, 255, 0.06);
+    --dash-border-hover: rgba(255, 255, 255, 0.12);
+    --dash-text: #ffffff;
+    --dash-text-secondary: rgba(255, 255, 255, 0.50);
+    --dash-text-muted: rgba(255, 255, 255, 0.30);
+    --dash-text-dim: rgba(255, 255, 255, 0.15);
+    --dash-accent: #00FF94;
+    --dash-danger: #ef4444;
+    --dash-warning: #f59e0b;
+  }
+
   body {
     @apply bg-black text-white font-sans antialiased;
   }
-
 
   ::selection {
     @apply bg-accent/20 text-white;
@@ -27,6 +42,21 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-white/20;
   }
+
+  /* Consistent focus-visible ring for interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  select:focus-visible,
+  [role="menuitem"]:focus-visible,
+  [role="button"]:focus-visible {
+    @apply outline-none ring-2 ring-accent/50 ring-offset-2 ring-offset-black rounded-sm;
+  }
+
+  /* Inputs use border-accent instead of ring */
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none border-accent;
+  }
 }
 
 @layer components {
@@ -34,9 +64,34 @@
     @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
 
+  .section-container-narrow {
+    @apply max-w-4xl mx-auto px-6 lg:px-8;
+  }
+
   .bg-grid-pattern {
     background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 32px 32px;
+  }
+
+  /* HUD slider — used by landing ControlsPanel */
+  .hud-slider {
+    @apply h-1 appearance-none rounded-full bg-white/10 cursor-pointer;
+  }
+  .hud-slider::-webkit-slider-thumb {
+    @apply appearance-none h-3 w-3 rounded-full bg-accent border-0 cursor-pointer;
+    box-shadow: 0 0 6px rgba(0, 255, 148, 0.4);
+  }
+  .hud-slider::-moz-range-thumb {
+    @apply h-3 w-3 rounded-full bg-accent border-0 cursor-pointer;
+    box-shadow: 0 0 6px rgba(0, 255, 148, 0.4);
+  }
+
+  /* HUD checkbox — used by landing ControlsPanel */
+  .hud-checkbox {
+    @apply h-3 w-3 appearance-none rounded-sm border border-white/20 bg-transparent cursor-pointer;
+  }
+  .hud-checkbox:checked {
+    @apply bg-accent border-accent;
   }
 }
 
@@ -45,5 +100,58 @@
   75%, 100% {
     transform: scale(2);
     opacity: 0;
+  }
+}
+
+/* Film grain noise animation */
+@keyframes grain {
+  0%, 100% { background-position: 0 0; }
+  10% { background-position: -5% -10%; }
+  20% { background-position: -15% 5%; }
+  30% { background-position: 7% -25%; }
+  40% { background-position: -5% 25%; }
+  50% { background-position: -15% 10%; }
+  60% { background-position: 15% 0%; }
+  70% { background-position: 0% 15%; }
+  80% { background-position: 3% 35%; }
+  90% { background-position: -10% 10%; }
+}
+
+/* Sweeping border glow */
+@keyframes sweep-glow {
+  0% { top: -200px; }
+  100% { top: 100%; }
+}
+
+/* Accent glow pulse */
+@keyframes pulse-accent {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Subtle vertical float */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@layer utilities {
+  .text-glow-accent {
+    text-shadow: 0 0 12px rgba(0, 255, 148, 0.4), 0 0 40px rgba(0, 255, 148, 0.15);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 8px rgba(0, 255, 148, 0.08), inset 0 0 8px rgba(0, 255, 148, 0.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-grain,
+  .animate-sweep-glow,
+  .animate-float,
+  .animate-pulse-accent,
+  .animate-pulse,
+  .animate-spin {
+    animation: none !important;
   }
 }
