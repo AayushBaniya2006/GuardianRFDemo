@@ -10,7 +10,7 @@ type Milestone = {
 
 export function StoryTimeline({ milestones }: { milestones: Milestone[] }) {
   return (
-    <div className="space-y-16">
+    <div className="space-y-10">
       {milestones.map((milestone, i) => (
         <motion.div
           key={milestone.title}

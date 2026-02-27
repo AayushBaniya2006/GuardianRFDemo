@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Card } from "@/components/ui/Card";
 import { CTASection } from "@/components/sections/CTASection";
-import { StoryTimeline } from "@/components/sections/StoryTimeline";
+import { TacticalGrid } from "@/components/visuals/TacticalGrid";
+import { HUDElement } from "@/components/visuals/HUDElement";
 
 
 
@@ -32,74 +33,82 @@ const investors = ["Y Combinator", "Space Capital", "Valor Equity Partners", "D3
 export default function StoryPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="py-24 pt-32">
-        <div className="section-container max-w-4xl">
-          <AnimatedSection>
+      {/* Hero + Timeline (side-by-side on desktop) */}
+      <section className="relative bg-gray-950 overflow-hidden">
+        <TacticalGrid />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-gray-950 z-[2]" />
+        <HUDElement corner="top-left" className="z-[4] mt-16" />
+        <HUDElement corner="bottom-right" className="z-[4]" />
+
+        <div className="relative z-10 w-full section-container pt-24 pb-20">
+          {/* Centered hero copy */}
+          <div className="text-center max-w-3xl mx-auto">
             <SectionLabel>Our Story</SectionLabel>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-white tracking-[-0.03em]">
               Built from the front lines
             </h1>
 
-            <p className="text-base text-gray-400 mt-6 max-w-lg leading-relaxed">
+            <p className="text-lg text-gray-400 mt-4 leading-relaxed">
               Guardian RF was founded by former Georgetown classmates with
               backgrounds in physics and signal processing who deployed to
               Ukraine to assist with drone detection.
             </p>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* Timeline */}
-      <section className="py-24 bg-gray-950">
-        <div className="section-container max-w-3xl">
-          <StoryTimeline milestones={milestones} />
-        </div>
-      </section>
-
-      {/* Blockquote */}
-      <section className="py-24 bg-gray-950">
-        <div className="section-container max-w-3xl">
-          <AnimatedSection>
-            <blockquote className="border-l-2 border-accent/30 pl-8">
+            <blockquote className="border-l-2 border-accent/30 pl-6 mt-8 text-left max-w-xl mx-auto">
               <p className="text-xl md:text-2xl font-light text-gray-300 leading-relaxed">
                 &ldquo;Persistence matters more than raw capability. Small, deployable sensors outperform sophisticated, slow systems.&rdquo;
               </p>
             </blockquote>
-          </AnimatedSection>
-        </div>
-      </section>
+          </div>
 
-      {/* Team */}
-      <section className="py-24">
-        <div className="section-container">
-          <AnimatedSection>
-            <SectionLabel>Leadership</SectionLabel>
-          </AnimatedSection>
-
-          <div className="mt-8 border-t border-gray-800">
-            {founders.map((founder) => (
-              <AnimatedSection key={founder.name}>
-                <div className="flex items-center justify-between py-8 border-b border-gray-800">
-                  <div className="flex items-center gap-4">
-                    <span className="w-12 h-12 rounded-full bg-gray-950 border border-gray-800 flex items-center justify-center text-xs font-mono text-gray-500">
-                      {founder.initials}
-                    </span>
-                    <span className="font-medium text-white">{founder.name}</span>
+          {/* Timeline roadmap — 2-col with all items visible */}
+          <div className="mt-20">
+            <SectionLabel className="text-center">Our Journey</SectionLabel>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl mx-auto">
+              {milestones.map((milestone) => (
+                <div key={milestone.title} className="grid grid-cols-[auto_auto_1fr] gap-x-4 items-start">
+                  <span className="text-xs font-mono text-gray-500 tracking-wider pt-1.5">
+                    {milestone.year}
+                  </span>
+                  <div className="flex flex-col items-center pt-2">
+                    <span className="w-2 h-2 rounded-full bg-accent/40 shrink-0" />
                   </div>
-                  <span className="text-sm text-gray-500">{founder.title}</span>
+                  <div>
+                    <h3 className="text-base font-medium text-white">
+                      {milestone.title}
+                    </h3>
+                    <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+                      {milestone.description}
+                    </p>
+                  </div>
                 </div>
-              </AnimatedSection>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Investors */}
+      {/* Team + Investors (combined) */}
       <section className="py-24">
         <div className="section-container">
-          <AnimatedSection variant="fade-in">
+          <SectionLabel>Leadership</SectionLabel>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+            {founders.map((founder) => (
+              <Card key={founder.name}>
+                <div className="flex flex-col items-center text-center">
+                  <span className="w-14 h-14 rounded-full bg-gray-900 border border-gray-700 flex items-center justify-center text-sm font-mono text-gray-400 mb-4">
+                    {founder.initials}
+                  </span>
+                  <h3 className="text-lg font-medium text-white">{founder.name}</h3>
+                  <p className="text-sm text-gray-500 mt-1">{founder.title}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <div className="border-t border-gray-800 mt-12 pt-12">
             <SectionLabel variant="muted" className="text-center mb-6">
               Backed by
             </SectionLabel>
@@ -113,7 +122,7 @@ export default function StoryPage() {
                 </span>
               ))}
             </div>
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 

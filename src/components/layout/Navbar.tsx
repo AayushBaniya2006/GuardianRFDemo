@@ -29,10 +29,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   { label: "Platform", href: "/platform" },
   { label: "Hardware", href: "/hardware" },
-  {
-    label: "About",
-    children: [{ label: "The Guardian RF Story", href: "/about/story" }],
-  },
+  { label: "About", href: "/about/story" },
 ];
 
 /* ─── Dropdown (desktop) ──────────────────────────────────────────── */
@@ -101,14 +98,14 @@ function DesktopDropdown({ item }: { item: NavItem }) {
   return (
     <div className="relative" onMouseEnter={enter} onMouseLeave={leave}>
       <button
-        className="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition-colors duration-200"
+        className="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors duration-200"
         aria-expanded={open}
         aria-haspopup="true"
         onKeyDown={handleKeyDown}
       >
         {item.label}
         <ChevronDown
-          className={`w-3 h-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -125,7 +122,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
               ref={menuRef}
               role="menu"
               onKeyDown={handleMenuKeyDown}
-              className="min-w-[240px] rounded-lg border border-gray-800 bg-gray-950 py-1.5"
+              className="min-w-[280px] rounded-lg border border-gray-800 bg-gray-950 py-2"
             >
               {item.children?.map((child) => (
                 <Link
@@ -133,7 +130,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
                   href={child.href}
                   role="menuitem"
                   tabIndex={open ? 0 : -1}
-                  className="block px-4 py-2 text-xs text-gray-400 hover:text-white hover:bg-gray-900 focus-visible:text-white focus-visible:bg-gray-900 focus-visible:outline-none transition-colors duration-150"
+                  className="block px-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-gray-900 focus-visible:text-white focus-visible:bg-gray-900 focus-visible:outline-none transition-colors duration-150"
                 >
                   {child.label}
                 </Link>
@@ -294,7 +291,7 @@ function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2 shrink-0">
       <Image src="/images/logo-symbol.png" alt="Guardian RF" width={20} height={20} />
-      <span className="text-white font-medium tracking-[0.15em] text-xs uppercase font-mono">
+      <span className="text-white font-medium tracking-[0.15em] text-sm uppercase font-mono">
         Guardian RF
       </span>
     </Link>
@@ -339,7 +336,7 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href!}
-                  className="text-xs text-gray-400 hover:text-white transition-colors duration-200"
+                  className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   {item.label}
                 </Link>
@@ -349,10 +346,10 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
             <Link
-              href="/contact"
+              href="/dashboard"
               className="hidden lg:inline-flex border border-gray-700 rounded-md px-4 py-1.5 text-sm text-white/80 hover:border-gray-500 hover:text-white transition-colors duration-150"
             >
-              Contact
+              Platform
             </Link>
 
             <button

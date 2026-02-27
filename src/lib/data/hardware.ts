@@ -14,12 +14,6 @@ export const scoutFeatures = [
   "Attritable design for persistent presence",
 ];
 
-export const scoutMountings = [
-  { name: "Tripod", description: "Standard rapid deployment configuration" },
-  { name: "Pole Mount", description: "Range extender for extended coverage" },
-  { name: "Field Mount", description: "Complete field deployment configuration" },
-];
-
 export const fullSpectrumCapabilities = [
   "Signal fingerprinting",
   "Attribution analysis",

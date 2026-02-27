@@ -15,7 +15,7 @@ export function SectionLabel({
   variant = "accent",
 }: SectionLabelProps) {
   return (
-    <p className={`text-xs font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] ${variantClasses[variant]} mb-4 ${className}`}>
+    <p className={`text-xs font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] ${variantClasses[variant]} mb-2 ${className}`}>
       {children}
     </p>
   );

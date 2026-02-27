@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/Card";
 import { AnimatedBorder } from "@/components/ui/AnimatedBorder";
 import { capabilities } from "@/lib/data/capabilities";
 
+
 const iconMap: Record<string, LucideIcon> = {
   Globe, TrendingUp, Crosshair, Brain, Lock, Plug,
 };
@@ -36,16 +37,16 @@ export default function PlatformPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-24 pt-32">
-        <div className="section-container max-w-4xl">
+      <section className="pt-32 pb-40">
+        <div className="section-container">
           <AnimatedSection>
             <SectionLabel>Intelligence Platform</SectionLabel>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-[-0.03em]">
               Persistent Airspace Surveillance Platform
             </h1>
 
-            <p className="text-base text-gray-400 mt-6 max-w-lg leading-relaxed">
+            <p className="text-lg text-gray-400 mt-4 max-w-2xl leading-relaxed">
               Guardian RF converts passive RF observations into a structured
               intelligence product for low-altitude airspace. Detections persist,
               correlate, and resolve across time and geography, enabling
@@ -60,12 +61,12 @@ export default function PlatformPage() {
       <section className="py-24">
         <div className="section-container">
           <AnimatedSection variant="fade-in">
-            <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-[-0.03em]">
               Detection to Intelligence Pipeline
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {transformations.map((item, i) => (
               <AnimatedSection key={item.before} delay={i * 0.08}>
                 <Card>
@@ -90,12 +91,12 @@ export default function PlatformPage() {
         <div className="section-container">
           <AnimatedSection variant="fade-in">
             <SectionLabel>Capabilities</SectionLabel>
-            <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-[-0.03em]">
               Six pillars of airspace intelligence
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {capabilities.map((cap, i) => (
               <AnimatedSection key={cap.title} delay={i * 0.08}>
                 <Card>
@@ -125,7 +126,7 @@ export default function PlatformPage() {
             </p>
           </AnimatedSection>
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5">
             {architectureItems.map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 0.08}>
                 <AnimatedBorder>

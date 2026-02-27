@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Providers } from "@/components/ui/Providers";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -15,9 +16,25 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Guardian RF — Persistent Airspace Intelligence",
+  title: {
+    default: "Guardian RF — Persistent Airspace Intelligence",
+    template: "%s — Guardian RF",
+  },
   description:
     "Radiofrequency drone intelligence for low-altitude airspace monitoring.",
+  openGraph: {
+    type: "website",
+    siteName: "Guardian RF",
+    title: "Guardian RF — Persistent Airspace Intelligence",
+    description:
+      "Radiofrequency drone intelligence for low-altitude airspace monitoring.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Guardian RF — Persistent Airspace Intelligence",
+    description:
+      "Radiofrequency drone intelligence for low-altitude airspace monitoring.",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +44,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

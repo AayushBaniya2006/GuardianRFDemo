@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { AnimatedSection, ParallaxSection } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CTASection } from "@/components/sections/CTASection";
 import { Card } from "@/components/ui/Card";
-
+import { TacticalGrid } from "@/components/visuals/TacticalGrid";
+import { HUDElement } from "@/components/visuals/HUDElement";
 import { AnimatedBorder } from "@/components/ui/AnimatedBorder";
 import {
   scoutSpecs,
@@ -29,52 +29,67 @@ const comparisonRows = [
 export default function HardwarePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="py-24 pt-32">
-        <div className="section-container max-w-4xl">
-          <AnimatedSection>
+      {/* Hero — fills viewport */}
+      <section className="relative bg-gray-950 min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+        <TacticalGrid />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-gray-950 z-[2]" />
+        <HUDElement corner="top-left" className="z-[4] mt-16" />
+        <HUDElement corner="bottom-right" className="z-[4]" />
+
+        <div className="relative z-10 w-full section-container py-16">
+          <div className="text-center max-w-3xl mx-auto">
             <SectionLabel>Hardware</SectionLabel>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-white tracking-[-0.03em]">
               Two complementary product lines
             </h1>
 
-            <p className="text-base text-gray-400 mt-6 max-w-lg leading-relaxed">
+            <p className="text-lg text-gray-400 mt-4 leading-relaxed">
               Guardian RF hardware is designed to provide persistent RF-based
               awareness across the full spectrum of low-altitude drone activity.
               The platform is built around two complementary product lines that
               address distinct but overlapping threat classes.
             </p>
-          </AnimatedSection>
+
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
+              <a
+                href="#scout"
+                className="px-4 py-2 border border-gray-800 rounded-full text-sm font-mono text-gray-300 hover:border-accent/20 hover:text-white transition-all duration-200"
+              >
+                Scout Sensor &rarr;
+              </a>
+              <a
+                href="#full-spectrum"
+                className="px-4 py-2 border border-gray-800 rounded-full text-sm font-mono text-gray-300 hover:border-accent/20 hover:text-white transition-all duration-200"
+              >
+                Full Spectrum &rarr;
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Scout Section */}
-      <section id="scout" className="py-24 bg-gray-950">
-        <div className="section-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Image with parallax + scan-line */}
-            <ParallaxSection offset={25}>
-              <AnimatedSection variant="fade-in">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src="/images/scoutrest.png"
-                    alt="Guardian RF Scout Sensor"
-                    fill
-                    className="object-contain relative z-10"
-                  />
-                  <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-                    <div className="absolute left-0 right-0 h-px bg-accent/10 animate-scan-line" />
-                  </div>
-                </div>
-              </AnimatedSection>
-            </ParallaxSection>
 
-            {/* Copy */}
-            <AnimatedSection delay={0.1}>
+      {/* Scout Section — seamless bg from hero */}
+      <section id="scout" className="bg-gray-950 pb-20">
+        <div className="section-container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+            <div className="relative aspect-[4/3]">
+              <Image
+                src="/images/scoutrest.png"
+                alt="Guardian RF Scout Sensor"
+                fill
+                className="object-contain"
+              />
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute left-0 right-0 h-px bg-accent/10 animate-scan-line" />
+              </div>
+            </div>
+
+            <div>
               <SectionLabel>Scout Sensor</SectionLabel>
 
-              <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-[-0.03em]">
                 Detection and classification at scale
               </h2>
 
@@ -86,7 +101,6 @@ export default function HardwarePage() {
                 visibility into routine and anomalous drone activity.
               </p>
 
-              {/* Specs */}
               <div className="border-t border-gray-800">
                 {scoutSpecs.map((spec) => (
                   <div key={spec.label} className="flex justify-between py-4 border-b border-gray-800">
@@ -96,7 +110,6 @@ export default function HardwarePage() {
                 ))}
               </div>
 
-              {/* Features */}
               <ul className="mt-8 space-y-3">
                 {scoutFeatures.map((feature, i) => (
                   <li key={i} className="flex items-start gap-3">
@@ -105,20 +118,20 @@ export default function HardwarePage() {
                   </li>
                 ))}
               </ul>
-            </AnimatedSection>
+            </div>
           </div>
         </div>
       </section>
 
+
       {/* Full Spectrum Section */}
-      <section id="full-spectrum" className="py-24">
+      <section id="full-spectrum" className="py-20">
         <div className="section-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Copy first on desktop */}
-            <AnimatedSection>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+            <div>
               <SectionLabel>Full Spectrum</SectionLabel>
 
-              <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-[-0.03em]">
                 Extended detection for non-cooperative threats
               </h2>
 
@@ -138,66 +151,59 @@ export default function HardwarePage() {
                   </li>
                 ))}
               </ul>
-            </AnimatedSection>
+            </div>
 
-            {/* Image with parallax + scan-line */}
-            <ParallaxSection offset={25}>
-              <AnimatedSection variant="fade-in" delay={0.1}>
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src="/images/fullspectrum1.jpeg"
-                    alt="Guardian RF Full Spectrum Sensor"
-                    fill
-                    className="object-contain relative z-10"
-                  />
-                  <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-                    <div className="absolute left-0 right-0 h-px bg-accent/10 animate-scan-line" />
-                  </div>
-                </div>
-              </AnimatedSection>
-            </ParallaxSection>
+            <div className="relative aspect-[4/3]">
+              <Image
+                src="/images/fullspectrum1.jpeg"
+                alt="Guardian RF Full Spectrum Sensor"
+                fill
+                className="object-contain"
+              />
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute left-0 right-0 h-px bg-accent/10 animate-scan-line" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
+
       {/* Design Philosophy */}
       <section className="py-24 bg-gray-950">
         <div className="section-container">
-          <AnimatedSection>
-            <SectionLabel>Design Philosophy</SectionLabel>
-            <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">
-              Principles that diverge from traditional counter-UAS thinking
-            </h2>
-          </AnimatedSection>
+          <SectionLabel>Design Philosophy</SectionLabel>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-[-0.03em]">
+            Principles that diverge from traditional counter-UAS thinking
+          </h2>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               { title: "Low SWaP-C", description: "Small size, low power, affordable cost enables broad deployment." },
               { title: "Attritable", description: "Designed to be deployed, not protected. Replace, don't repair." },
               { title: "Passive", description: "RF receive only. No emissions, no interference, no spectrum issues." },
               { title: "Edge Processing", description: "Detection and classification at the sensor. Minimal backhaul." },
-            ].map((pillar, i) => (
-              <AnimatedSection key={pillar.title} delay={i * 0.08}>
-                <Card>
-                  <h3 className="text-lg font-semibold text-white mb-2">{pillar.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{pillar.description}</p>
-                </Card>
-              </AnimatedSection>
+            ].map((pillar) => (
+              <Card key={pillar.title}>
+                <h3 className="text-lg font-semibold text-white mb-2">{pillar.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{pillar.description}</p>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
+
       {/* Comparison */}
       <section className="py-24">
         <div className="section-container">
-          <AnimatedSection>
-            <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">
-              Choose the right sensor
-            </h2>
+          <SectionLabel>Comparison</SectionLabel>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-[-0.03em]">
+            Choose the right sensor
+          </h2>
 
-            <AnimatedBorder>
-            <div className="rounded-xl overflow-x-auto">
+          <AnimatedBorder>
+            <div className="rounded-lg overflow-x-auto">
               <table className="w-full min-w-[500px]">
                 <thead>
                   <tr className="bg-gray-950">
@@ -217,10 +223,10 @@ export default function HardwarePage() {
                 </tbody>
               </table>
             </div>
-            </AnimatedBorder>
-          </AnimatedSection>
+          </AnimatedBorder>
         </div>
       </section>
+
 
       <CTASection
         title="Ready to deploy persistent coverage?"

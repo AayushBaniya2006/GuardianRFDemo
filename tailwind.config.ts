@@ -9,7 +9,7 @@ const config: Config = {
     extend: {
       colors: {
         gray: {
-          950: "#0a0a0f",
+          950: "#0b0b12",
           900: "#111118",
           800: "#1f1f2e",
           700: "#2a2a3d",
@@ -24,6 +24,16 @@ const config: Config = {
           DEFAULT: "#00FF94",
         },
         danger: "#ff3b3b",
+        dash: {
+          DEFAULT: "rgba(255,255,255,0.06)",
+          bg: "#080b12",
+          panel: "#0c1019",
+          elevated: "#111820",
+          hover: "rgba(255,255,255,0.12)",
+          secondary: "rgba(255,255,255,0.50)",
+          muted: "rgba(255,255,255,0.30)",
+          dim: "rgba(255,255,255,0.15)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

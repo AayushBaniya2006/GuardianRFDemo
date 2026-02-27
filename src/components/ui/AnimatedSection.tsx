@@ -48,7 +48,7 @@ export function AnimatedSection({
     <motion.div
       initial={v.initial}
       whileInView={v.whileInView}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "0px 0px -15% 0px", amount: 0.05 }}
       transition={{
         duration: 0.3,
         delay,

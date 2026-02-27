@@ -22,9 +22,9 @@ const verticals = [
 
 export function DeploymentsAndVerticals() {
   return (
-    <section className="py-24">
+    <section className="py-20">
       <div className="section-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left — Deployments */}
           <AnimatedSection className="lg:col-span-7">
             <SectionLabel>Deployments &amp; Recognition</SectionLabel>

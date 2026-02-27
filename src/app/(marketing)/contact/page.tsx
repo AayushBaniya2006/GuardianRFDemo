@@ -72,18 +72,18 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="py-24 pt-32">
+    <section className="pt-12 pb-20">
       <div className="section-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
           {/* Form */}
           <AnimatedSection>
             <SectionLabel>Contact</SectionLabel>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-[-0.03em]">
               Get in touch
             </h1>
 
-            <p className="text-base text-gray-400 mt-4 mb-10">
+            <p className="text-lg text-gray-400 mt-3 mb-8">
               Tell us about your mission requirements.
             </p>
 
