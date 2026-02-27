@@ -1,20 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Button } from "@/components/ui/Button";
+import { AnimatedBorder } from "@/components/ui/AnimatedBorder";
+import { HUDElement } from "@/components/visuals/HUDElement";
+import { GridBackground } from "@/components/visuals/GridBackground";
 
-const inquiryTypes = ["", "Request a Demo", "Sales Inquiry", "Partnership Opportunity", "Media Inquiry", "Career Inquiry", "Other"];
+const inquiryTypes = ["", "Schedule Capability Demonstration", "Sales Inquiry", "Partnership Opportunity", "Media Inquiry", "Career Inquiry", "Other"];
 const industries = ["", "Defense & National Security", "Law Enforcement & Public Safety", "Critical Infrastructure & Energy", "Stadiums, Campuses & Events", "Aviation & Emergency Response", "Other"];
 
 const steps = [
-  { number: "01", title: "Quick Response", description: "We'll respond within 24 hours to schedule a call." },
-  { number: "02", title: "Platform Walkthrough", description: "See the Intelligence Platform in action with your use case." },
-  { number: "03", title: "Custom Configuration", description: "Discuss sensor deployment and integration for your requirements." },
+  { number: "01", title: "Initial Response", description: "Response within one business day." },
+  { number: "02", title: "Capability Demonstration", description: "Platform demonstration tailored to your operational environment." },
+  { number: "03", title: "Deployment Planning", description: "Sensor configuration, integration requirements, and deployment timeline." },
 ];
 
 const inputClasses =
-  "w-full bg-transparent border border-gray-800 rounded-lg px-4 py-3 text-white text-sm focus:border-accent focus:outline-none transition-colors placeholder:text-gray-700";
+  "w-full bg-transparent border border-gray-800 rounded-lg px-4 py-3 text-white text-sm focus:border-accent focus:shadow-[0_0_12px_rgba(0,255,148,0.08)] focus:outline-none transition-all placeholder:text-gray-700";
 
 export default function ContactPage() {
   const [fullName, setFullName] = useState("");
@@ -24,11 +29,52 @@ export default function ContactPage() {
   const [inquiryType, setInquiryType] = useState("");
   const [industry, setIndustry] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, boolean> = {};
+    if (!fullName.trim()) newErrors.fullName = true;
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = true;
+    if (!organization.trim()) newErrors.organization = true;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    try {
+      const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+      if (!formId) {
+        toast.error("Contact form is temporarily unavailable. Please email contact@guardianrf.com directly.");
+        return;
+      }
+      const res = await fetch(`https://formspree.io/f/${formId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ fullName, email, organization, title, inquiryType, industry, message }),
+      });
+      if (res.ok) {
+        toast.success("Message sent. We'll respond within 24 hours.");
+        setFullName(""); setEmail(""); setOrganization(""); setTitle("");
+        setInquiryType(""); setIndustry(""); setMessage("");
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch {
+      toast.error("Failed to send. Please email contact@guardianrf.com directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="py-24 pt-32">
       <div className="section-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Form */}
           <AnimatedSection>
             <SectionLabel>Contact</SectionLabel>
@@ -41,19 +87,20 @@ export default function ContactPage() {
               Tell us about your mission requirements.
             </p>
 
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+            <AnimatedBorder>
+            <form onSubmit={handleSubmit} className="space-y-6 p-6 rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="fullName" className="text-xs text-gray-400 mb-2 block font-mono uppercase tracking-wider">
                     Full Name
                   </label>
-                  <input id="fullName" type="text" required placeholder="Your full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className={inputClasses} />
+                  <input id="fullName" type="text" required placeholder="Your full name" value={fullName} onChange={(e) => { setFullName(e.target.value); setErrors((p) => ({ ...p, fullName: false })); }} className={`${inputClasses} ${errors.fullName ? "!border-danger" : ""}`} />
                 </div>
                 <div>
                   <label htmlFor="email" className="text-xs text-gray-400 mb-2 block font-mono uppercase tracking-wider">
                     Work Email
                   </label>
-                  <input id="email" type="email" required placeholder="you@organization.com" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClasses} />
+                  <input id="email" type="email" required placeholder="you@organization.com" value={email} onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: false })); }} className={`${inputClasses} ${errors.email ? "!border-danger" : ""}`} />
                 </div>
               </div>
 
@@ -62,7 +109,7 @@ export default function ContactPage() {
                   <label htmlFor="organization" className="text-xs text-gray-400 mb-2 block font-mono uppercase tracking-wider">
                     Organization
                   </label>
-                  <input id="organization" type="text" required placeholder="Your organization" value={organization} onChange={(e) => setOrganization(e.target.value)} className={inputClasses} />
+                  <input id="organization" type="text" required placeholder="Your organization" value={organization} onChange={(e) => { setOrganization(e.target.value); setErrors((p) => ({ ...p, organization: false })); }} className={`${inputClasses} ${errors.organization ? "!border-danger" : ""}`} />
                 </div>
                 <div>
                   <label htmlFor="title" className="text-xs text-gray-400 mb-2 block font-mono uppercase tracking-wider">
@@ -101,21 +148,23 @@ export default function ContactPage() {
                 <textarea id="message" rows={4} placeholder="Tell us about your requirements..." value={message} onChange={(e) => setMessage(e.target.value)} className={inputClasses} />
               </div>
 
-              <button
-                type="submit"
-                className="bg-white text-black font-medium rounded-md px-6 py-3 text-sm hover:bg-gray-100 transition-colors duration-200"
-              >
-                Send Message
-              </button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+              </Button>
             </form>
+            </AnimatedBorder>
           </AnimatedSection>
 
           {/* Info */}
           <AnimatedSection delay={0.15}>
-            <div className="lg:pl-12 lg:border-l lg:border-gray-800">
-              <h3 className="text-lg font-medium text-white mb-8">
-                What to expect
-              </h3>
+            <div className="lg:pl-12 lg:border-l lg:border-gray-800 relative">
+              <HUDElement corner="top-right" />
+              <div className="relative overflow-hidden rounded-lg p-6 mb-8">
+                <GridBackground />
+                <h3 className="text-lg font-medium text-white mb-0 relative z-10">
+                  What to expect
+                </h3>
+              </div>
 
               <div className="space-y-8">
                 {steps.map((step) => (

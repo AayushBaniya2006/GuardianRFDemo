@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+import { Globe, TrendingUp, Crosshair, Brain, Lock, Plug, type LucideIcon } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CTASection } from "@/components/sections/CTASection";
 import { Card } from "@/components/ui/Card";
+
+import { AnimatedBorder } from "@/components/ui/AnimatedBorder";
 import { capabilities } from "@/lib/data/capabilities";
+
+const iconMap: Record<string, LucideIcon> = {
+  Globe, TrendingUp, Crosshair, Brain, Lock, Plug,
+};
 
 export const metadata: Metadata = {
   title: "Intelligence Platform — Guardian RF",
@@ -35,7 +42,7 @@ export default function PlatformPage() {
             <SectionLabel>Intelligence Platform</SectionLabel>
 
             <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-              The data layer for low-altitude airspace
+              Persistent Airspace Surveillance Platform
             </h1>
 
             <p className="text-base text-gray-400 mt-6 max-w-lg leading-relaxed">
@@ -54,7 +61,7 @@ export default function PlatformPage() {
         <div className="section-container">
           <AnimatedSection variant="fade-in">
             <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">
-              From detections to answers
+              Detection to Intelligence Pipeline
             </h2>
           </AnimatedSection>
 
@@ -63,7 +70,13 @@ export default function PlatformPage() {
               <AnimatedSection key={item.before} delay={i * 0.08}>
                 <Card>
                   <p className="text-sm text-gray-500">{item.before}</p>
-                  <p className="text-accent/60 my-3 text-sm">&darr;</p>
+                  <div className="my-3 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-accent/60" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M8 2 L8 14 M4 10 L8 14 L12 10">
+                        <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+                      </path>
+                    </svg>
+                  </div>
                   <p className="text-lg font-semibold text-white">{item.after}</p>
                 </Card>
               </AnimatedSection>
@@ -86,6 +99,10 @@ export default function PlatformPage() {
             {capabilities.map((cap, i) => (
               <AnimatedSection key={cap.title} delay={i * 0.08}>
                 <Card>
+                  {iconMap[cap.icon] && (() => {
+                    const Icon = iconMap[cap.icon];
+                    return <Icon className="w-5 h-5 text-accent/60 mb-4" />;
+                  })()}
                   <h3 className="text-lg font-semibold text-white">
                     {cap.title}
                   </h3>
@@ -111,10 +128,12 @@ export default function PlatformPage() {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             {architectureItems.map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 0.08}>
-                <Card>
-                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                  <p className="text-sm text-gray-400 mt-2">{item.description}</p>
-                </Card>
+                <AnimatedBorder>
+                  <Card>
+                    <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                    <p className="text-sm text-gray-400 mt-2">{item.description}</p>
+                  </Card>
+                </AnimatedBorder>
               </AnimatedSection>
             ))}
           </div>
@@ -122,9 +141,9 @@ export default function PlatformPage() {
       </section>
 
       <CTASection
-        title="See the platform in action"
-        primaryHref="/dashboard"
-        primaryLabel="Launch Platform"
+        title="Discuss platform requirements"
+        primaryHref="/contact"
+        primaryLabel="Request Platform Demonstration"
       />
     </>
   );

@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { DemoLanding } from "@/components/landing/DemoLanding";
-import { MetricsBar } from "@/components/sections/MetricsBar";
+import { Hero } from "@/components/sections/Hero";
 import { PlatformPreview } from "@/components/sections/PlatformPreview";
-import { Pipeline } from "@/components/sections/Pipeline";
-import { ScoutShowcase } from "@/components/sections/ScoutShowcase";
-import { IndustryCards } from "@/components/sections/IndustryCards";
-import { SocialProof } from "@/components/sections/SocialProof";
+import { DeploymentsAndVerticals } from "@/components/sections/DeploymentsAndVerticals";
 import { CTASection } from "@/components/sections/CTASection";
 import { Footer } from "@/components/layout/Footer";
-import { CursorGlow } from "@/components/ui/CursorGlow";
 import { NoiseOverlay } from "@/components/visuals/NoiseOverlay";
 
 export const metadata: Metadata = {
@@ -25,23 +21,17 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* 3D Hero — full viewport, own TopBar */}
       <DemoLanding />
 
-      {/* Below-fold marketing sections — with visual effects matching subpages */}
       <div className="relative">
-        <CursorGlow />
         <NoiseOverlay />
-        <MetricsBar />
+        <Hero />
         <PlatformPreview />
-        <Pipeline />
-        <ScoutShowcase />
-        <IndustryCards />
-        <SocialProof />
+        <DeploymentsAndVerticals />
         <CTASection
-          title="Ready to see what's in your airspace?"
-          primaryHref="/dashboard"
-          primaryLabel="Launch Platform"
+          title="Discuss your requirements"
+          primaryHref="/contact"
+          primaryLabel="Request Briefing"
         />
         <Footer />
       </div>

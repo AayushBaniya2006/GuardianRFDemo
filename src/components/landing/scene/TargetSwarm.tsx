@@ -56,11 +56,19 @@ function Target({
   const color = isDetected ? colors.accent : colors.dimGray;
 
   useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * data.orbitSpeed + data.orbitPhase;
+    const elapsed = clock.getElapsedTime();
+    const t = elapsed * data.orbitSpeed + data.orbitPhase;
+    const p = data.orbitPhase;
+
+    // Multi-frequency drift prevents deterministic loop detection
+    const driftX = Math.sin(elapsed * 0.3 + p) * 0.4 + Math.sin(elapsed * 0.17 + p * 2.1) * 0.2;
+    const driftZ = Math.cos(elapsed * 0.2 + p * 1.5) * 0.4 + Math.cos(elapsed * 0.13 + p * 1.8) * 0.2;
+    const driftY = Math.sin(elapsed * 0.15 + p * 0.7) * 0.15;
+
     groupRef.current.position.set(
-      Math.cos(t) * data.orbitRadiusX,
-      data.altitude + Math.sin(t * 1.3) * 0.4,
-      Math.sin(t) * data.orbitRadiusZ
+      Math.cos(t) * data.orbitRadiusX + driftX,
+      data.altitude + Math.sin(t * 1.3) * 0.4 + driftY,
+      Math.sin(t) * data.orbitRadiusZ + driftZ
     );
   });
 

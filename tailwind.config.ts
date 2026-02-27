@@ -50,7 +50,10 @@ const config: Config = {
       animation: {
         "fade-up": "fadeUp 0.5s ease-out forwards",
         sweep: "sweep 6s linear infinite",
-"scan-line": "scanLine 3s linear infinite",
+        "scan-line": "scanLine 3s linear infinite",
+        blip: "blip 2s ease-in-out infinite",
+        "blip-ping": "blipPing 2s ease-out infinite",
+        "blip-fade": "blipFade 3s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
@@ -61,9 +64,21 @@ const config: Config = {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
-scanLine: {
+        scanLine: {
           "0%": { top: "-2%" },
           "100%": { top: "102%" },
+        },
+        blip: {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.4", transform: "scale(0.7)" },
+        },
+        blipPing: {
+          "0%": { transform: "scale(1)", opacity: "0.6" },
+          "100%": { transform: "scale(3.5)", opacity: "0" },
+        },
+        blipFade: {
+          "0%, 100%": { opacity: "0.15" },
+          "50%": { opacity: "0.5" },
         },
       },
     },

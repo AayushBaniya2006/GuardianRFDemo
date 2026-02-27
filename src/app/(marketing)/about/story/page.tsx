@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CTASection } from "@/components/sections/CTASection";
+import { StoryTimeline } from "@/components/sections/StoryTimeline";
+
+
 
 export const metadata: Metadata = {
   title: "Our Story — Guardian RF",
@@ -51,29 +54,7 @@ export default function StoryPage() {
       {/* Timeline */}
       <section className="py-24 bg-gray-950">
         <div className="section-container max-w-3xl">
-          <div className="space-y-16">
-            {milestones.map((milestone, i) => (
-              <AnimatedSection key={milestone.title} delay={i * 0.08}>
-                <div className="grid grid-cols-[auto_auto_1fr] gap-x-6 items-start">
-                  <span className="text-xs font-mono text-gray-500 tracking-wider pt-1.5">
-                    {milestone.year}
-                  </span>
-                  <div className="flex flex-col items-center pt-2">
-                    <span className="w-2 h-2 rounded-full bg-accent/40 shrink-0" />
-                    <span className="w-px flex-1 bg-gray-800 mt-1" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-white">
-                      {milestone.title}
-                    </h3>
-                    <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                      {milestone.description}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          <StoryTimeline milestones={milestones} />
         </div>
       </section>
 
@@ -81,10 +62,9 @@ export default function StoryPage() {
       <section className="py-24 bg-gray-950">
         <div className="section-container max-w-3xl">
           <AnimatedSection>
-            <blockquote className="border-l border-accent pl-8">
+            <blockquote className="border-l-2 border-accent/30 pl-8">
               <p className="text-xl md:text-2xl font-light text-gray-300 leading-relaxed">
-                &ldquo;Persistence matters more than raw capability. Small,
-                deployable sensors outperform sophisticated, slow systems.&rdquo;
+                &ldquo;Persistence matters more than raw capability. Small, deployable sensors outperform sophisticated, slow systems.&rdquo;
               </p>
             </blockquote>
           </AnimatedSection>
@@ -99,8 +79,8 @@ export default function StoryPage() {
           </AnimatedSection>
 
           <div className="mt-8 border-t border-gray-800">
-            {founders.map((founder, i) => (
-              <AnimatedSection key={founder.name} delay={i * 0.08}>
+            {founders.map((founder) => (
+              <AnimatedSection key={founder.name}>
                 <div className="flex items-center justify-between py-8 border-b border-gray-800">
                   <div className="flex items-center gap-4">
                     <span className="w-12 h-12 rounded-full bg-gray-950 border border-gray-800 flex items-center justify-center text-xs font-mono text-gray-500">
@@ -120,14 +100,14 @@ export default function StoryPage() {
       <section className="py-24">
         <div className="section-container">
           <AnimatedSection variant="fade-in">
-            <p className="text-xs font-mono uppercase tracking-[0.2em] text-gray-500 text-center mb-6">
+            <SectionLabel variant="muted" className="text-center mb-6">
               Backed by
-            </p>
+            </SectionLabel>
             <div className="flex flex-wrap justify-center gap-3">
               {investors.map((investor) => (
                 <span
                   key={investor}
-                  className="px-4 py-1.5 text-xs font-mono text-gray-400 border border-gray-800 rounded-full bg-gray-950"
+                  className="px-4 py-1.5 text-xs font-mono text-gray-400 border border-gray-800 rounded-full bg-gray-950 hover:border-accent/20 hover:shadow-[0_0_12px_rgba(0,255,148,0.06)] transition-all duration-300"
                 >
                   {investor}
                 </span>
@@ -138,9 +118,9 @@ export default function StoryPage() {
       </section>
 
       <CTASection
-        title="Join the mission"
-        primaryHref="/dashboard"
-        primaryLabel="Launch Platform"
+        title="Contact Us"
+        primaryHref="/contact"
+        primaryLabel="Request Briefing"
       />
     </>
   );

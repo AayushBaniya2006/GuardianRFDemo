@@ -39,7 +39,7 @@ export function Hero3DScene({ controls }: Hero3DSceneProps) {
       <Suspense fallback={null}>
         <TerrainPlane />
         <SensorNode />
-        <DetectionDome />
+        <DetectionDome sensitivity={controls.sensitivity} />
         <ScanPulse scanRate={controls.scanRate} />
         <TargetSwarm controls={controls} />
       </Suspense>

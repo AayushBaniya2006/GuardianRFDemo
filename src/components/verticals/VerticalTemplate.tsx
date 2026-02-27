@@ -1,10 +1,10 @@
-"use client";
-
 import { Vertical } from "@/lib/data/verticals";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CTASection } from "@/components/sections/CTASection";
 import { Card } from "@/components/ui/Card";
+
+
 
 type Props = {
   vertical: Vertical;
@@ -30,16 +30,12 @@ export function VerticalTemplate({ vertical }: Props) {
         <div className="section-container max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <AnimatedSection>
-              <p className="text-xs font-mono uppercase tracking-[0.2em] text-gray-500 mb-4">
-                The Challenge
-              </p>
+              <SectionLabel variant="muted">The Challenge</SectionLabel>
               <p className="text-gray-400 leading-relaxed">{vertical.problem}</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.1}>
-              <p className="text-xs font-mono uppercase tracking-[0.2em] text-accent mb-4">
-                The Solution
-              </p>
+              <SectionLabel>The Solution</SectionLabel>
               <p className="text-gray-400 leading-relaxed">{vertical.solution}</p>
             </AnimatedSection>
           </div>
@@ -55,7 +51,7 @@ export function VerticalTemplate({ vertical }: Props) {
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {vertical.capabilities.map((cap, i) => (
-              <AnimatedSection key={cap.title} delay={i * 0.08}>
+              <AnimatedSection key={cap.title}>
                 <Card>
                   <h3 className="text-lg font-semibold text-white">{cap.title}</h3>
                   <p className="text-sm text-gray-400 mt-2 leading-relaxed">{cap.description}</p>
@@ -74,15 +70,15 @@ export function VerticalTemplate({ vertical }: Props) {
               <SectionLabel>Proven Deployments</SectionLabel>
             </AnimatedSection>
 
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {vertical.deployments.map((dep, i) => (
-                <AnimatedSection key={dep.name} delay={i * 0.08}>
-                  <div className="border border-gray-800 bg-gray-950 rounded-lg p-8 hover:border-gray-700 transition-colors duration-200">
+                <AnimatedSection key={dep.name}>
+                  <Card>
                     <h3 className="text-lg font-semibold text-white">
                       {dep.name}
                     </h3>
                     <p className="text-sm text-gray-400 mt-2 leading-relaxed">{dep.description}</p>
-                  </div>
+                  </Card>
                 </AnimatedSection>
               ))}
             </div>
@@ -91,9 +87,9 @@ export function VerticalTemplate({ vertical }: Props) {
       )}
 
       <CTASection
-        title={`Secure your ${vertical.shortTitle.toLowerCase()} airspace`}
-        primaryHref="/dashboard"
-        primaryLabel="Launch Platform"
+        title={`Discuss ${vertical.shortTitle.toLowerCase()} requirements`}
+        primaryHref="/contact"
+        primaryLabel="Request Briefing"
       />
     </>
   );
